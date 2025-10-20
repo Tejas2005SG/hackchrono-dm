@@ -136,7 +136,7 @@ Location Details:
     llm = ChatOpenAI(
         model="z-ai/glm-4.5-air:free",
         base_url="https://openrouter.ai/api/v1",
-        api_key="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",
+        api_key="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",
         temperature=0.4,
         top_p=0.3
     )
