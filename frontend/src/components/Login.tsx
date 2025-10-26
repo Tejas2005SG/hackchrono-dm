@@ -32,33 +32,31 @@ function Login() {
     setError('');
 
     try {
-      // Login - cookie will be set automatically by the backend
+      // ✅ Login - cookie will be set by backend
       const loginResponse = await api.post('/auth/login', formData);
 
-      // Check if login response contains user data
       if (!loginResponse.data || !loginResponse.data.user_id) {
         throw new Error('Login failed: No user data returned');
       }
 
       console.log('Login successful:', loginResponse.data);
 
-      // Fetch user profile using the cookie
-      const profileResponse = await api.get('/auth/profile');
-      if (!profileResponse.data) {
-        throw new Error('Failed to fetch user profile');
-      }
-
-      const userData = profileResponse.data;
-
-      // Update auth state
+      // ✅ Use user data from login response (if available)
+      // OR set a minimal user object and let ProtectedRoute fetch full profile
       login({
-        id: userData.id,
-        username: userData.username,
-        email: userData.email,
-        created_at: userData.created_at,
+        id: loginResponse.data.user_id,
+        username: loginResponse.data.user?.username || formData.email.split('@')[0],
+        email: formData.email,
+        created_at: new Date().toISOString()
       });
 
+      // ✅ Navigate to dashboard - ProtectedRoute will verify auth with cookie
       navigate('/dashboard');
+
+      // ❌ REMOVED: Don't call /auth/profile immediately after login
+      // The cookie needs time to be set in the browser
+      // ProtectedRoute will handle fetching profile data
+
     } catch (err: any) {
       console.error('Login error:', err);
       if (err.response?.data?.detail) {
@@ -158,7 +156,6 @@ function Login() {
           </button>
         </div>
         
-        {/* Decorative elements */}
         <div className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-br from-yellow-500/10 to-transparent rounded-full blur-xl"></div>
         <div className="absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-tr from-yellow-400/10 to-transparent rounded-full blur-lg"></div>
       </div>

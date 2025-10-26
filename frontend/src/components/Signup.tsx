@@ -52,7 +52,7 @@ function Signup() {
     }
 
     try {
-      // Signup
+      // ✅ Signup
       const signupResponse = await api.post('/auth/signup', formData)
 
       if (!signupResponse.data) {
@@ -61,7 +61,7 @@ function Signup() {
 
       console.log('Signup successful:', signupResponse.data)
 
-      // Auto-login after signup
+      // ✅ Auto-login after signup (sets cookie)
       const loginResponse = await api.post('/auth/login', {
         email: formData.email,
         password: formData.password
@@ -71,23 +71,22 @@ function Signup() {
         throw new Error('Login after signup failed')
       }
 
-      // Fetch user profile
-      const profileResponse = await api.get('/auth/profile')
+      console.log('Auto-login successful:', loginResponse.data)
 
-      if (!profileResponse.data) {
-        throw new Error('Failed to fetch user profile')
-      }
-
-      const userData = profileResponse.data
-
+      // ✅ Set user data from login response
       login({
-        id: userData.id,
-        username: userData.username,
-        email: userData.email,
-        created_at: userData.created_at
+        id: loginResponse.data.user_id,
+        username: formData.username,
+        email: formData.email,
+        created_at: new Date().toISOString()
       })
 
+      // ✅ Navigate - let ProtectedRoute handle profile fetching
       navigate('/dashboard')
+
+      // ❌ REMOVED: Don't call /auth/profile immediately
+      // The cookie needs time to be set in the browser
+
     } catch (err: any) {
       console.error('Signup error:', err)
       if (err.response?.data?.detail) {
@@ -230,7 +229,6 @@ function Signup() {
           </button>
         </div>
 
-        {/* Decorative elements */}
         <div className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-br from-yellow-500/10 to-transparent rounded-full blur-xl"></div>
         <div className="absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-tr from-yellow-400/10 to-transparent rounded-full blur-lg"></div>
       </div>

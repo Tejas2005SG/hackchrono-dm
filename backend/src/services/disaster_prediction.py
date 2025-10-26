@@ -6,7 +6,9 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
+import os
 
+openrouter_apikey=os.getenv("OPENROUTER_API_KEY")
 # --- SYSTEM PROMPT ---
 
 # --- SYSTEM PROMPT ---
@@ -136,7 +138,7 @@ Location Details:
     llm = ChatOpenAI(
         model="z-ai/glm-4.5-air:free",
         base_url="https://openrouter.ai/api/v1",
-        api_key="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",
+        api_key=openrouter_apikey,
         temperature=0.4,
         top_p=0.3
     )
