@@ -76,7 +76,7 @@ const Whatif = () => {
     
     setLoadingLocation(true);
     try {
-      const response = await fetch(`http://localhost:3001/api/locations/states?country=${encodeURIComponent(country)}`);
+      const response = await fetch(`https://hackchrono-dm.onrender.com/api/locations/states?country=${encodeURIComponent(country)}`);
       const data = await response.json();
       
       if (data.states) {
@@ -95,7 +95,7 @@ const Whatif = () => {
     
     setLoadingLocation(true);
     try {
-      const response = await fetch(`http://localhost:3001/api/locations/cities?state=${encodeURIComponent(state)}&query=${encodeURIComponent(query)}`);
+      const response = await fetch(`https://hackchrono-dm.onrender.com/api/locations/cities?state=${encodeURIComponent(state)}&query=${encodeURIComponent(query)}`);
       const data = await response.json();
       
       if (data.cities) {
@@ -148,7 +148,7 @@ const Whatif = () => {
     setResult(null);
 
     try {
-      const response = await fetch('http://localhost:3001/api/predict-disaster', {
+      const response = await fetch('https://hackchrono-dm.onrender.com/api/predict-disaster', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
