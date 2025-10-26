@@ -139,7 +139,7 @@ export default function LocationDigitalTwin() {
   }
 
   const getBackendURL = () => {
-    return 'http://localhost:8000'
+    return 'https://disaster-prediction-a841.onrender.com'
   }
 
   const BACKEND_URL = getBackendURL()

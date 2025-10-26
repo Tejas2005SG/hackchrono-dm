@@ -29,7 +29,7 @@ function App() {
     const fetchData = async () => {
       try {
         // Use backend proxy to bypass CORS for Ambee API
-        const proxyUrl = `http://localhost:3001/api/disasters?lat=${center.lat}&lng=${center.lng}&limit=50`
+        const proxyUrl = `https://hackchrono-dm.onrender.com/api/disasters?lat=${center.lat}&lng=${center.lng}&limit=50`
         console.log('[DisastersAPI] Request URL:', proxyUrl, 'center:', center)
         const res = await fetch(proxyUrl, {
           method: 'GET',
@@ -171,7 +171,7 @@ function App() {
           error: 'Connection to backend failed',
           message: e?.message || 'Failed to fetch',
           attempted_endpoints: [
-            `http://localhost:3001/api/disasters?lat=${center.lat}&lng=${center.lng}&limit=50`
+            `https://hackchrono-dm.onrender.com/api/disasters?lat=${center.lat}&lng=${center.lng}&limit=50`
           ]
         })
       }
