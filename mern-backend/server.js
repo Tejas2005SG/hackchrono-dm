@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import fetch from 'node-fetch'
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import DisasterDataProcessor from './csvProcessor.js';
+import DisasterDataProcessor from './csvprocessor.js';
 const app = express()
 const PORT = process.env.PORT || 3001
 import dotenv from 'dotenv'
