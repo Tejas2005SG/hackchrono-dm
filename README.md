@@ -676,6 +676,4 @@ For questions, feedback, or support:
 **Built with ❤️ for safer cities and better disaster preparedness**
 
 **Stack:** FastAPI + Node.js + React + MongoDB + AI/ML
-```
 
-T
